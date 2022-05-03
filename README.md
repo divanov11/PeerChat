@@ -10,4 +10,4 @@ let APP_ID = "YOU-APP-ID"
 ```
 
 
-<img src="./preview.png">  
+<img src="./images/preview.png">  
