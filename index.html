@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -9,30 +9,95 @@
 </head>
 <body>
 
+    <nav id="main-nav">
+        <a href="#" id="toggle-chat-btn">
+            <img src="icons/message.png" alt="Toggle Messages button" />
+        </a>
+    </nav>
+
+    <!-- Chat Container -->
+    <div id="chat-container">
+        <div class="close-button" onclick="closeChatContainer()">  <img src="icons/close.png" alt="Close Messages Panel" /> </div>
+        <div class="message-container" id="message-container">
+        </div>
+        <div class="input-container">
+            <input type="text" id="message-input" class="message-input" placeholder="Type your message...">
+            <button id="send-button" class="send-button">Send</button>
+        </div>
+    </div>
+
     <div id="videos">
         <video class="video-player" id="user-1" autoplay playsinline></video>
         <video class="video-player" id="user-2" autoplay playsinline></video>
     </div>
 
     <div id="controls">
-
         <div class="control-container" id="camera-btn">
-            <img src="icons/camera.png" />
+            <img src="icons/camera.png" alt="camera action call button" />
         </div>
-
         <div class="control-container" id="mic-btn">
-            <img src="icons/mic.png" />
+            <img src="icons/mic.png" alt="mute action call button" />
         </div>
-
         <a href="lobby.html">
             <div class="control-container" id="leave-btn">
-                <img src="icons/phone.png" />
+                <img src="icons/phone.png" alt="Leave call button" />
             </div>
         </a>
-
     </div>
-    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const chatContainer = document.getElementById('chat-container');
+            const toggleChatBtn = document.getElementById('toggle-chat-btn');
+            const mainNav = document.getElementById('main-nav');
+
+            toggleChatBtn.addEventListener('click', function () {
+                chatContainer.style.display = chatContainer.style.display === 'none' ? 'block' : 'none';
+
+                // Toggle visibility of the toggle-chat-btn
+                toggleChatBtn.style.display = chatContainer.style.display === 'none' ? 'block' : 'none';
+
+                // Add or remove active class to the mainNav
+                mainNav.classList.toggle('active');
+            });
+        });
+
+        function closeChatContainer() {
+            document.getElementById('chat-container').style.display = 'none';
+            document.getElementById('toggle-chat-btn').style.display = 'block'; // Ensure the button is visible when closing
+            document.getElementById('main-nav').classList.remove('active');
+        }
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const messageContainer = document.getElementById('message-container');
+      const messageInput = document.getElementById('message-input');
+      const sendButton = document.getElementById('send-button');
+
+      sendButton.addEventListener('click', function () {
+        const messageText = messageInput.value.trim();
+        if (messageText !== '') {
+          appendMessage('sender', messageText);
+          messageInput.value = '';
+          // You can add logic here to send the message to the server or recipient.
+        }
+      });
+
+      function appendMessage(sender, text) {
+        const messageElement = document.createElement('div');
+        const bubbleElement = document.createElement('div');
+        messageElement.classList.add('message');
+        bubbleElement.classList.add(sender === 'sender' ? 'sender-bubble' : 'receiver-bubble');
+        bubbleElement.textContent = text;
+        messageElement.appendChild(bubbleElement);
+        messageContainer.appendChild(messageElement);
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+      }
+    });
+  </script>
+
+    <script src='agora-rtm-sdk-1.4.4.js'></script>
+    <script src='main.js'></script>
 </body>
-<script src='agora-rtm-sdk-1.4.4.js'></script>
-<script src='main.js'></script>
 </html>

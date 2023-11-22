@@ -9,5 +9,9 @@ A peer to peer WebRTC application with controls
 let APP_ID = "YOU-APP-ID"
 ```
 
-
 <img src="./images/preview.PNG">  
+
+# Projects Using this template
+
+## Chat Mistique
+ https://github.com/Flammy-Tech/ChatMistique.git
