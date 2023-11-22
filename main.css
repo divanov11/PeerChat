@@ -1,78 +1,193 @@
-*{
+/* styles.css */
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-#videos{
-    display: grid;
-    grid-template-columns: 1fr;
-    height: 100vh;
-    overflow:hidden;
+nav {
+    background-color: transparent;
 }
 
-.video-player{
+/* Message Container */
+
+#main-nav.active #toggle-chat-btn {
+    display: none;
+}
+
+#chat-container {
+    right: 0;
+    position: fixed;
+    width: 500px;
+    max-width: 900px;
+    margin: 20px 5px;
+    overflow: hidden;
+    border: solid 3px #000000;
+    border-radius: 10px;
+    background-color: rgba(238, 232, 232, 0.566);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure it appears on top of other elements */
+    display: none;
+}
+
+.message-container {
+    background-color: transparent;
+    padding: 20px;
+    overflow-y: auto;
+    height: 400px;
+    display: flex;
+    flex-direction: column-reverse; /* Reverse the order of messages */
+}
+
+.message {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sender-bubble {
+    background-color: #4caf50;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 70%;
+    right: 0;
+}
+
+.receiver-bubble {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 70%;
+}
+
+
+.input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+}
+
+.message-input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.send-button {
+    background-color: rgb(179, 102, 249, 0.9);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+#toggle-chat-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it appears on top of other elements */
+}
+
+#videos {
+    display: grid;
+    background-color: #000000;
+    grid-template-columns: 1fr;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.video-player {
     background-color: black;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-#user-2{
+#user-2 {
     display: none;
 }
 
-.smallFrame{
+.smallFrame {
     position: fixed;
     top: 20px;
     left: 20px;
     height: 170px;
     width: 300px;
     border-radius: 5px;
-    border:2px solid #b366f9;
-    -webkit-box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.77);
-    box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.77);
+    border: 2px solid #b366f9;
+    -webkit-box-shadow: 3px 3px 15px -1px rgba(0, 0, 0, 0.77);
+    box-shadow: 3px 3px 15px -1px rgba(0, 0, 0, 0.77);
     z-index: 999;
 }
 
-
-#controls{
+#controls {
     position: fixed;
     bottom: 20px;
     left: 50%;
-    transform:translateX(-50%);
+    transform: translateX(-50%);
     display: flex;
     gap: 1em;
 }
 
-
-.control-container{
-  background-color: rgb(179, 102, 249, .9);
-  padding: 20px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+.control-container {
+    background-color: rgb(179, 102, 249, 0.9);
+    padding: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
-.control-container img{
+.control-container img {
     height: 30px;
     width: 30px;
 }
 
-#leave-btn{
-    background-color: rgb(255,80,80, 1);
+#leave-btn {
+    background-color: rgb(255, 80, 80, 1);
 }
 
-@media screen and (max-width:600px) {
-        .smallFrame{
-            height: 80px;
-            width: 120px;
-        }
+@media screen and (max-width: 600px) {
+    #chat-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90%;
+    }
 
-        .control-container img{
-            height: 20px;
-            width: 20px;
-        }
+    .message-container {
+        height: 60vh;
+    }
+
+    .smallFrame {
+        height: 80px;
+        width: 120px;
+    }
+
+    .control-container img {
+        height: 20px;
+        width: 20px;
+    }
+
+    #user-1 {
+        height: 200px;
+        width: 300px;
+    }
 }

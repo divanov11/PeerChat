@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Messaging App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .chat-container {
+        max-width: 600px;
+      margin: 20px 5px;
+      overflow: hidden;
+      border-radius: 10px;
+      background-color: purple;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .message-container {
+        background-color: transparent;
+      padding: 20px;
+      overflow-y: scroll;
+      height:400px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sender-bubble {
+      background-color: #4caf50;
+      color: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      max-width: 70%;
+    }
+
+    .receiver-bubble {
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      padding: 10px;
+      max-width: 70%;
+    }
+
+    .input-container {
+      display: flex;
+      padding: 10px;
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+    }
+
+    .message-input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .send-button {
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="message-container" id="message-container">
+      <!-- Messages will be dynamically added here -->
+    </div>
+    <div class="input-container">
+      <input type="text" id="message-input" class="message-input" placeholder="Type your message...">
+      <button id="send-button" class="send-button">Send</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const messageContainer = document.getElementById('message-container');
+      const messageInput = document.getElementById('message-input');
+      const sendButton = document.getElementById('send-button');
+
+      sendButton.addEventListener('click', function () {
+        const messageText = messageInput.value.trim();
+        if (messageText !== '') {
+          appendMessage('sender', messageText);
+          messageInput.value = '';
+          // You can add logic here to send the message to the server or recipient.
+        }
+      });
+
+      function appendMessage(sender, text) {
+        const messageElement = document.createElement('div');
+        const bubbleElement = document.createElement('div');
+        messageElement.classList.add('message');
+        bubbleElement.classList.add(sender === 'sender' ? 'sender-bubble' : 'receiver-bubble');
+        bubbleElement.textContent = text;
+        messageElement.appendChild(bubbleElement);
+        messageContainer.appendChild(messageElement);
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+      }
+    });
+  </script>
+
+</body>
+</html>

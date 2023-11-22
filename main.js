@@ -50,8 +50,55 @@ let init = async () => {
 
     localStream = await navigator.mediaDevices.getUserMedia(constraints)
     document.getElementById('user-1').srcObject = localStream
+
+    // Set up message listener
+    channel.on('ChannelMessage', handleChannelMessage);
 }
- 
+
+
+let handleChannelMessage = (message, memberId) => {
+    // Handle messages received from the channel
+    appendMessage(memberId, message.text, 'received-message');
+}
+
+let sendMessage = () => {
+    // Get the message input value
+    let messageInput = document.getElementById('message-input');
+    let messageText = messageInput.value.trim();
+
+    // Check if the message is not empty
+    if (messageText !== '') {
+        // Send the message to the channel
+        channel.sendMessage({ text: messageText, senderId: uid });
+
+        // Append the sent message to the UI
+        appendMessage('user-1', messageText, 'sent-message');
+
+        // Clear the message input
+        messageInput.value = '';
+    }
+}
+
+let appendMessage = (senderId, message, messageClass) => {
+    // Append the message to the messages container
+    let messageContainer = document.getElementById('message-container');
+    let messageElement = document.createElement('div');
+    messageElement.className = 'message';
+
+    let messageBubble = document.createElement('div');
+    messageBubble.className = messageClass === 'sent-message' ? 'sender-bubble' : 'receiver-bubble';
+    messageBubble.innerText = `${senderId}: ${message}`;
+
+    messageElement.appendChild(messageBubble);
+    messageContainer.appendChild(messageElement);
+
+    // Scroll to the bottom to show the latest message
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
+
+
+document.getElementById('send-button').addEventListener('click', sendMessage);
 
 let handleUserLeft = (MemberId) => {
     document.getElementById('user-2').style.display = 'none'
